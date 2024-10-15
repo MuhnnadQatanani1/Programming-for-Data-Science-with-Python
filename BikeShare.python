@@ -1,0 +1,54 @@
+# Constants for Discount
+DISCOUNT_RATE_FREQUENT_USER = 0.10  # 10% discount for frequent customers
+
+class BikeRental:
+    def __init__(self, bike_id, price_per_hour, is_available):
+        self.bike_id = bike_id
+        self.price_per_hour = price_per_hour
+        self.is_available = is_available
+
+class Customer:
+    def __init__(self, name, hours_rented, is_frequent_user):
+        self.name = name
+        self.hours_rented = hours_rented
+        self.is_frequent_user = is_frequent_user
+
+class BikeShareSystem:
+    def __init__(self):
+        self.bike_rentals = []
+
+    def add_bike(self, bike):
+        """Adds a new bike to the rental system."""
+        self.bike_rentals.append(bike)
+
+    def get_available_bikes(self):
+        """Returns a list of available bikes."""
+        return [bike for bike in self.bike_rentals if bike.is_available]
+
+    def calculate_rental_cost(self, customer):
+        """Calculates the total rental cost for a customer, including discounts."""
+        total_cost = 0
+        available_bikes = self.get_available_bikes()
+
+        # If no bikes are available, return 0 cost
+        if not available_bikes:
+            return 0
+
+        for bike in available_bikes:
+            total_cost += bike.price_per_hour * customer.hours_rented
+
+        # Apply discount for frequent customers
+        if customer.is_frequent_user:
+            total_cost = self.apply_frequent_user_discount(total_cost)
+
+        return total_cost
+
+    def apply_frequent_user_discount(self, total_cost):
+        """Applies a discount to the total cost for frequent users."""
+        discount_amount = total_cost * DISCOUNT_RATE_FREQUENT_USER
+        return total_cost - discount_amount
+
+    def find_first_available_bike(self):
+        """Finds and returns the first available bike."""
+        available_bikes = self.get_available_bikes()
+        return available_bikes[0] if available_bikes else None
