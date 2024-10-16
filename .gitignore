@@ -1,1 +1,5 @@
 *.csv
+secret.txt
+/logs/
+*.log
+/build/*.o
