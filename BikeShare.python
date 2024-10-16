@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Constants for Discount
 DISCOUNT_RATE_FREQUENT_USER = 0.10  # 10% discount for frequent customers
 
@@ -12,12 +13,26 @@ class Customer:
         self.name = name
         self.hours_rented = hours_rented
         self.is_frequent_user = is_frequent_user
+=======
+class BikeRental:
+    def __init__(self, bike_id, price_per_hour, available):
+        self.bike_id = bike_id
+        self.price_per_hour = price_per_hour
+        self.available = available
+
+class Customer:
+    def __init__(self, name, hours_rented, is_frequent):
+        self.name = name
+        self.hours_rented = hours_rented
+        self.is_frequent = is_frequent
+>>>>>>> documentation
 
 class BikeShareSystem:
     def __init__(self):
         self.bike_rentals = []
 
     def add_bike(self, bike):
+<<<<<<< HEAD
         """Adds a new bike to the rental system."""
         self.bike_rentals.append(bike)
 
@@ -52,3 +67,22 @@ class BikeShareSystem:
         """Finds and returns the first available bike."""
         available_bikes = self.get_available_bikes()
         return available_bikes[0] if available_bikes else None
+=======
+        self.bike_rentals.append(bike)
+
+    def calculate_total_cost(self, customer):
+        total_cost = 0
+        for bike in self.bike_rentals:
+            if bike.available:
+                total_cost += bike.price_per_hour * customer.hours_rented
+        if customer.is_frequent:
+            total_cost *= 0.9  # 10% discount for frequent users
+        return total_cost
+
+    def find_available_bike(self):
+        available_bikes = []
+        for bike in self.bike_rentals:
+            if bike.available:
+                available_bikes.append(bike)
+        return available_bikes
+>>>>>>> documentation
